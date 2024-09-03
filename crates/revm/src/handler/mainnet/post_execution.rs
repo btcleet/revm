@@ -76,15 +76,10 @@ pub fn refund<SPEC: Spec, EXT, DB: Database>(
         let standard_cost = gas.spent() - token_cost_difference;
         let floor = 21_000 + tokens_in_calldata * TOTAL_COST_FLOOR_PER_TOKEN;
 
-        // TODO: exact refund logic needs to be clarified
-        // if standard_cost > floor {
-        //     // Return gas charged as token cost floor.
-        //     gas.erase_cost(token_cost_difference);
-        // } else {
-        //     // TODO:
-        //     let remaining = floor - gas.spent();
-        //     let gas_used = floor;
-        // }
+        if standard_cost > floor {
+            // Return gas charged as token cost floor.
+            gas.erase_cost(token_cost_difference);
+        }
     }
 
     // Calculate gas refund for transaction.
