@@ -78,6 +78,7 @@ pub fn refund<SPEC: Spec, EXT, DB: Database>(
 
         if standard_cost > floor {
             // Return gas charged as token cost floor.
+            // TODO: should it be refund instead?
             gas.erase_cost(token_cost_difference);
         }
     }
